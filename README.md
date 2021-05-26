@@ -1,8 +1,11 @@
 # cross_view_localization_EgoTR
 
-## would update soon
+## will be updated soon
 
 ### Experiment Dataset
+
+* CVUSA：[https://github.com/viibridges/crossnet](https://github.com/viibridges/crossnet)
+* CVACT：[https://github.com/Liumouliu/OriCNN](https://github.com/Liumouliu/OriCNN)
 
 ### Dataset Preparation
 
@@ -14,6 +17,7 @@ Pretrained model Download(Google's Official Checkpoint)
 * R50+ViT-B_16 [pretrained model](https://console.cloud.google.com/storage/browser/vit_models/imagenet21k;tab=objects?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&prefix=&forceOnObjectsSortingFiltering=false)
 
 Our trained models for CVUSA and CVACT will be available soon
+* [Trained models](https://drive.google.com/file/d/1IOiElf_8-9Dq7n8vTAOi3kq8QAriFAjp/view?usp=sharing)
 
 
 ### Train and test model
@@ -23,7 +27,7 @@ python train.py --name CVUSA --dataset CVUSA --pretrained_dir YOUR_PRETRAINED_MO
 ```
 Test
 ```
-python test.py --name CVUSA --output_dir MODEL_WHERE_WILL_BE_SAVE --dataset_dir YOUR_DATASET_PATH
+python test.py --name CVUSA --dataset CVUSA --output_dir MODEL_WHERE_WILL_BE_SAVE --dataset_dir YOUR_DATASET_PATH
 ```
 If you want to use auto mixed precision, you should install [APEX](https://github.com/NVIDIA/apex) and add ```--fp16``` in startup code.
 
