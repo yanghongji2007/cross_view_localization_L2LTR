@@ -6,8 +6,6 @@ import torchvision
 from torchvision import transforms, datasets
 from torch.utils.data import DataLoader
 
-# dataloader_usa or dataloader_act
-
 
 logger = logging.getLogger(__name__)
 
@@ -21,8 +19,6 @@ def get_loader(args):
 
     trainset = TrainDataloader(args)
     testset = TestDataloader(args)
-    #trainset = TrainDataloader('/raid/luxiufan/Polar_CVUSA/',args)
-    #testset = TestDataloader('/raid/luxiufan/Polar_CVUSA/',args)
 
 
     train_loader = DataLoader(trainset,

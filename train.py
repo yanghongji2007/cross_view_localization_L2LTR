@@ -24,7 +24,7 @@ from utils.data_utils import get_loader
 import math
 import itertools
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '5'
+os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 
 
 logger = logging.getLogger(__name__)
@@ -90,7 +90,7 @@ def setup(args):
     # Prepare model
     config = CONFIGS[args.model_type]
     model_grd = VisionTransformer(config, args.img_size)
-    model_sat = VisionTransformer(config, args.img_size)
+    model_sat = VisionTransformer(config, args.img_size_sat)
 
     # load pretrained model
     model_grd.load_from(np.load(args.pretrained_dir))
@@ -176,7 +176,7 @@ def valid(args, model_grd, model_sat, writer, test_loader, global_step):
 
 
     # save eval result
-    file = './Result/'+ args.dataset + '/' + str(args.model_type) + '_accuracy1.txt'
+    file = './Result/'+ args.dataset + '/' + str(args.model_type) + '_accuracy.txt'
     if not os.path.exists('./Result/'+ args.dataset):
         os.makedirs('./Result/'+ args.dataset)
     with open(file, 'a') as file:
@@ -328,7 +328,7 @@ def main():
                         help="Which variant to use.")
 
     parser.add_argument("--polar", type=int,choices=[1,0],
-                        default=0,
+                        default=1,
                         help="polar transform or not")
 
     parser.add_argument("--pretrained_dir", type=str, default="checkpoint/ViT-B_16.npz",
@@ -340,7 +340,9 @@ def main():
 
 
     parser.add_argument("--img_size", default=(128, 512), type=int,
-                        help="Resolution size")
+                        help="Ground Resolution size")
+    parser.add_argument("--img_size_sat", default=(128, 512), type=int,
+                        help="Sat Resolution size")
     parser.add_argument("--train_batch_size", default=32, type=int,
                         help="Total batch size for training.")
     parser.add_argument("--eval_batch_size", default=32, type=int,

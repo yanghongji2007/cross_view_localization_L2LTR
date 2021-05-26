@@ -17,7 +17,7 @@ from models.model_crossattn import VisionTransformer, CONFIGS
 
 
 #from utils.dataloader_act import TestDataloader
-os.environ['CUDA_VISIBLE_DEVICES'] = '4'
+os.environ['CUDA_VISIBLE_DEVICES'] = '6'
 
 
 def validate(dist_array, top_k):
@@ -46,7 +46,7 @@ parser.add_argument("--model_type", choices=["ViT-B_16", "ViT-B_32", "ViT-L_16",
                     default="R50-ViT-B_16",
                     help="Which variant to use.")
 parser.add_argument("--polar", type=int,choices=[1,0],
-                        default=0,
+                        default=1,
                         help="polar transform or not")
 parser.add_argument("--dataset_dir", default="output", type=str,
                     help="The dataset path.")
@@ -57,13 +57,14 @@ parser.add_argument("--output_dir", default="output", type=str,
 parser.add_argument("--img_size", default=(128, 512), type=int,
                         help="Resolution size")
 
+parser.add_argument("--img_size_sat", default=(128, 512), type=int,
+                        help="Resolution size")
+
 parser.add_argument("--eval_batch_size", default=32, type=int,
                         help="Total batch size for eval.")
 
 args = parser.parse_args()
 
-#torch.manual_seed(args.seed)
-#torch.cuda.manual_seed(args.seed)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 args.n_gpu = torch.cuda.device_count()
@@ -73,7 +74,7 @@ args.device = device
 config = CONFIGS[args.model_type]
 
 model_grd = VisionTransformer(config, args.img_size)
-model_sat = VisionTransformer(config, args.img_size)
+model_sat = VisionTransformer(config, args.img_size_sat)
 
 
 
