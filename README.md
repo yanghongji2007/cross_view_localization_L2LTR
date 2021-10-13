@@ -1,4 +1,4 @@
-# cross_view_localization_EgoTR
+# cross_view_localization_L2LTR
 
 ## will be updated soon
 
